@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SPECTRA Love — Find Your Frequency</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--plum:#1a0a2e;--plum-mid:#2d1548;--plum-light:#4a2370;
+--coral:#ff6b6b;--coral-soft:#ff8585;--coral-glow:rgba(255,107,107,.15);
+--gold:#f5c842;--gold-soft:#ffd966;
+--rose:#ff4f7e;--rose-soft:#ff7da0;
+--cream:#fdf6f0;--cream-dark:#f5e6d8;
+--white:#fff;--g100:#f8f5f2;--g200:#ede6df;--g400:#b8a99a;--g600:#7a6b5d;--g800:#3d3228;
+--d:'Libre Baskerville',Georgia,serif;--b:'Outfit',system-ui,sans-serif;
+--ease:cubic-bezier(.23,1,.32,1);
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:var(--b);background:var(--cream);color:var(--g800);line-height:1.7;overflow-x:hidden}
+::selection{background:var(--rose);color:#fff}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.012;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+nav{position:fixed;top:0;width:100%;z-index:100;transition:all .4s var(--ease);padding:20px 0}
+nav.scrolled{background:rgba(26,10,46,.95);backdrop-filter:blur(16px);padding:12px 0;box-shadow:0 4px 30px rgba(0,0,0,.2)}
+.ni{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.nl{font-family:var(--d);font-size:22px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
+.nl em{font-style:italic;font-weight:400;opacity:.7}
+.nk{display:flex;align-items:center;gap:28px;list-style:none}
+.nk a{color:rgba(255,255,255,.7);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;transition:.2s}
+.nk a:hover{color:#fff}
+.nc{background:var(--coral);color:#fff!important;opacity:1!important;padding:10px 24px;border-radius:100px;font-weight:600;box-shadow:0 4px 20px rgba(255,107,107,.3);transition:all .3s var(--ease)}
+.nc:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,107,107,.4)}
+.mt{display:none;background:none;border:none;color:#fff;cursor:pointer;font-size:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 36px;border-radius:100px;font-weight:600;font-size:15px;text-decoration:none;transition:all .3s var(--ease);border:none;cursor:pointer;letter-spacing:.3px;font-family:var(--b)}
+.bp{background:linear-gradient(135deg,var(--coral),var(--rose));color:#fff;box-shadow:0 8px 32px rgba(255,107,107,.3)}
+.bp:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(255,107,107,.4)}
+.bo{background:rgba(255,255,255,.08);color:#fff;border:1.5px solid rgba(255,255,255,.15);backdrop-filter:blur(8px)}
+.bo:hover{background:rgba(255,255,255,.15);transform:translateY(-2px)}
+
+.hero{min-height:100vh;background:linear-gradient(160deg,var(--plum) 0%,var(--plum-mid) 40%,#3a1a5e 70%,var(--plum) 100%);position:relative;display:flex;align-items:center;overflow:hidden;padding:100px 32px 80px}
+.hero::before{content:'';position:absolute;top:-20%;right:-15%;width:700px;height:700px;background:radial-gradient(circle,rgba(255,107,107,.12) 0%,transparent 60%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-20%;left:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(245,200,66,.06) 0%,transparent 60%);pointer-events:none}
+.hi{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 440px;gap:64px;align-items:center}
+.hb{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:6px 16px 6px 8px;margin-bottom:24px;backdrop-filter:blur(8px)}
+.hbd{width:8px;height:8px;border-radius:50%;background:var(--coral);animation:pd 2s ease infinite}
+@keyframes pd{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.hb span{font-size:12px;color:rgba(255,255,255,.7);font-weight:500;letter-spacing:1px;text-transform:uppercase}
+.hero h1{font-family:var(--d);font-size:clamp(36px,5vw,54px);color:#fff;line-height:1.15;margin-bottom:24px;font-weight:400}
+.hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--coral),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hs{font-size:17px;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:40px;max-width:480px;font-weight:300}
+.ha{display:flex;gap:16px;flex-wrap:wrap}
+.hc{position:relative;width:340px;height:460px;margin:0 auto;z-index:2}
+.hca{position:absolute;width:280px;border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35);transition:all .6s var(--ease)}
+.hca:nth-child(1){top:0;left:30px;z-index:3;transform:rotate(-2deg)}
+.hca:nth-child(2){top:20px;left:50px;z-index:2;transform:rotate(3deg);opacity:.85}
+.hca:nth-child(3){top:40px;left:10px;z-index:1;transform:rotate(-5deg);opacity:.6}
+.ci{padding:20px;display:flex;flex-direction:column;min-height:380px;justify-content:flex-end;position:relative}
+.cmb{position:absolute;top:16px;right:16px;background:rgba(255,107,107,.9);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:700;color:#fff;letter-spacing:.5px}
+.db{display:flex;flex-direction:column;gap:6px;margin:14px 0}
+.dr{display:flex;align-items:center;gap:8px}
+.dl{font-size:10px;font-weight:700;width:12px;color:rgba(255,255,255,.65);text-align:right;letter-spacing:.5px}
+.dt{flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
+.df{height:100%;border-radius:3px}
+.cn{font-family:var(--d);font-size:20px;color:#fff;margin-bottom:2px}
+.cd{font-size:12px;color:rgba(255,255,255,.7);margin-bottom:8px}
+.ct{display:flex;gap:5px;flex-wrap:wrap}
+.cta{background:rgba(255,255,255,.18);backdrop-filter:blur(6px);border-radius:100px;padding:3px 10px;font-size:10px;color:#fff;font-weight:600}
+
+.ts{background:var(--plum);padding:48px 32px;position:relative;overflow:hidden}
+.ts::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,107,107,.3),transparent)}
+.ti{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.tn{font-family:var(--d);font-size:36px;color:#fff;margin-bottom:4px}
+.tn em{font-style:italic;color:var(--coral)}
+.tl{font-size:13px;color:rgba(255,255,255,.4);line-height:1.5}
+
+section{padding:100px 32px}
+.si{max-width:1200px;margin:0 auto}
+.sl{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--coral);margin-bottom:12px}
+.sh{font-family:var(--d);font-size:clamp(28px,3.5vw,42px);line-height:1.2;margin-bottom:16px;color:var(--g800)}
+.sd{font-size:16px;color:var(--g600);max-width:560px;line-height:1.8;font-weight:300}
+
+/* DIMENSIONS DECODE */
+.dim-decode{background:var(--white)}
+.dim-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin-top:48px}
+.dim-card{border-radius:16px;padding:20px 14px;text-align:center;transition:all .3s var(--ease);border:1px solid var(--g200)}
+.dim-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(26,10,46,.06)}
+.dim-letter{font-family:var(--d);font-size:32px;font-weight:700;margin-bottom:4px}
+.dim-name{font-size:13px;font-weight:700;color:var(--g800);margin-bottom:4px}
+.dim-sub{font-size:11px;color:var(--g400);line-height:1.4}
+.dim-poles{display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--g400)}
+
+.ms{background:var(--cream);padding:120px 32px}
+.mi{max-width:800px;margin:0 auto;text-align:center}
+.mi h2{font-family:var(--d);font-size:clamp(28px,4vw,46px);line-height:1.25;color:var(--g800);margin-bottom:24px}
+.mi h2 em{font-style:italic;color:var(--plum-light)}
+.mi p{font-size:17px;color:var(--g600);line-height:1.8;font-weight:300;max-width:620px;margin:0 auto 20px}
+
+.dc{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:80px;max-width:1200px;margin-left:auto;margin-right:auto}
+.dca{border-radius:24px;overflow:hidden;box-shadow:0 24px 64px rgba(26,10,46,.08);transition:transform .4s var(--ease)}
+.dca:hover{transform:translateY(-4px)}
+.dcv{min-height:280px;display:flex;align-items:center;justify-content:center;padding:40px}
+.dcc{padding:36px;background:var(--white)}
+.dca:nth-child(2) .dcc{background:var(--cream-dark)}
+.dca h3{font-family:var(--d);font-size:22px;margin-bottom:10px;color:var(--g800)}
+.dca p{font-size:15px;color:var(--g600);line-height:1.7;margin-bottom:14px}
+.dcl{font-size:14px;font-weight:600;color:var(--coral);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:gap .2s var(--ease)}
+.dcl:hover{gap:10px}
+.dcl::after{content:'→'}
+
+.fb{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:560px;border-radius:24px;overflow:hidden;margin-bottom:32px;box-shadow:0 24px 64px rgba(26,10,46,.08)}
+.fb:nth-child(even) .fv{order:-1}
+.ft{padding:56px;display:flex;flex-direction:column;justify-content:center;background:var(--white)}
+.fv{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.fk{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--coral);margin-bottom:12px}
+.ftl{font-family:var(--d);font-size:28px;line-height:1.3;margin-bottom:16px}
+.fds{font-size:15px;color:var(--g600);line-height:1.8;margin-bottom:24px}
+.fl{list-style:none;display:flex;flex-direction:column;gap:12px}
+.fl li{font-size:14px;color:var(--g600);display:flex;align-items:flex-start;gap:10px;line-height:1.6}
+.fl li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--coral);margin-top:8px;flex-shrink:0}
+.pf{width:280px;background:#1a1a2e;border-radius:28px;padding:8px;box-shadow:0 20px 60px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.1)}
+.ps{background:var(--cream);border-radius:22px;overflow:hidden}
+
+/* COMMUNICATION STYLE MATCHING */
+.csm{background:var(--cream)}
+.csm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:48px}
+.csm-card{background:var(--white);border-radius:20px;padding:28px;border:1px solid var(--g200);transition:all .3s var(--ease)}
+.csm-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(26,10,46,.06)}
+.csm-pair{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.csm-vs{font-size:11px;font-weight:700;color:var(--coral);letter-spacing:1px}
+.csm-card h4{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--g800)}
+.csm-card p{font-size:13px;color:var(--g600);line-height:1.6}
+
+/* DEEP TALK */
+.dts{background:linear-gradient(135deg,var(--plum),var(--plum-mid),#3a1a5e);color:#fff}
+.qg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.qc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px;transition:all .3s var(--ease)}
+.qc:hover{background:rgba(255,255,255,.08);transform:translateY(-3px)}
+.qs{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--coral);margin-bottom:8px}
+.qc p{font-family:var(--d);font-size:15px;font-style:italic;color:rgba(255,255,255,.8);line-height:1.5}
+.qn{font-family:var(--b)!important;font-style:normal!important;font-size:11px!important;color:rgba(255,255,255,.3)!important;margin-top:12px}
+
+/* 5-STAGE TOPIC MAP */
+.stm{background:var(--white)}
+.stage-row{display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:start;padding:28px 0;border-bottom:1px solid var(--g200)}
+.stage-row:last-child{border-bottom:none}
+.stage-num{font-family:var(--d);font-size:13px;font-style:italic;color:var(--coral)}
+.stage-name{font-family:var(--d);font-size:17px;color:var(--g800);margin-bottom:2px}
+.stage-goal{font-size:12px;color:var(--g400)}
+.stage-topics{display:flex;flex-wrap:wrap;gap:8px}
+.stage-tag{background:var(--cream);border-radius:100px;padding:5px 14px;font-size:12px;color:var(--g600);font-weight:500;transition:all .2s}
+.stage-tag:hover{background:var(--coral-glow);color:var(--coral)}
+
+/* COACHING ENGINE */
+.ce{background:var(--cream)}
+.ce-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.ce-card{background:var(--white);border-radius:20px;padding:28px 24px;transition:all .3s var(--ease);border:1px solid var(--g200)}
+.ce-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(26,10,46,.06)}
+.ce-card h4{font-family:var(--d);font-size:16px;margin-bottom:8px;color:var(--g800)}
+.ce-card p{font-size:13px;color:var(--g600);line-height:1.6}
+.ce-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--coral);background:var(--coral-glow);padding:3px 10px;border-radius:100px;margin-bottom:12px}
+
+/* CONVERSATION STATES */
+.cvs{background:var(--white)}
+.cvs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:48px}
+.cvs-card{background:var(--cream);border-radius:20px;padding:24px;transition:all .3s var(--ease)}
+.cvs-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(26,10,46,.06)}
+.cvs-state{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--plum-light);margin-bottom:6px}
+.cvs-card h4{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--g800)}
+.cvs-card p{font-size:13px;color:var(--g600);line-height:1.6}
+.cvs-tool{display:inline-block;font-size:10px;color:var(--coral);font-weight:600;margin-top:8px;letter-spacing:.5px}
+
+/* STEPS */
+.ss{background:var(--plum);color:#fff}
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
+.sc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:32px 24px;transition:all .3s var(--ease)}
+.sc:hover{background:rgba(255,255,255,.08);transform:translateY(-4px)}
+.sn{font-family:var(--d);font-size:36px;color:var(--coral);margin-bottom:12px;font-style:italic}
+.sc h4{font-size:16px;font-weight:600;margin-bottom:8px;color:#fff}
+.sc p{font-size:14px;color:rgba(255,255,255,.5);line-height:1.7}
+
+.mc{background:var(--white)}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.mv{background:linear-gradient(135deg,rgba(255,107,107,.06),rgba(245,200,66,.06));border-radius:24px;padding:48px;min-height:400px;display:flex;align-items:center;justify-content:center}
+
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.pc{background:var(--white);border:1px solid var(--g200);border-radius:24px;padding:40px 32px;text-align:center;transition:all .3s var(--ease)}
+.pc:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(26,10,46,.1)}
+.pc.fe{background:linear-gradient(160deg,var(--plum),var(--plum-mid));color:#fff;border:none;transform:scale(1.03);box-shadow:0 32px 80px rgba(26,10,46,.25)}
+.pc.fe:hover{transform:scale(1.03) translateY(-4px)}
+.ptg{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--coral);margin-bottom:8px}
+.pc.fe .ptg{color:var(--gold)}
+.pa{font-family:var(--d);font-size:48px}
+.pc.fe .pa{color:#fff}
+.pp2{font-size:14px;color:var(--g400);margin-bottom:16px}
+.pc.fe .pp2{color:rgba(255,255,255,.5)}
+.pde{font-size:14px;color:var(--g600);line-height:1.7;margin-bottom:24px}
+.pc.fe .pde{color:rgba(255,255,255,.6)}
+.pb{display:block;text-align:center;padding:14px;border-radius:100px;font-weight:600;font-size:14px;text-decoration:none;transition:all .3s var(--ease)}
+.pbo{border:2px solid var(--g200);color:var(--g800)}
+.pbo:hover{border-color:var(--coral);color:var(--coral)}
+.pbw{background:linear-gradient(135deg,var(--coral),var(--rose));color:#fff;box-shadow:0 8px 24px rgba(255,107,107,.3)}
+.pbw:hover{transform:translateY(-2px)}
+
+.sfg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.sfc{background:var(--g100);border-radius:20px;padding:36px 28px;text-align:center;transition:all .3s var(--ease)}
+.sfc:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(26,10,46,.06)}
+.sfi{font-size:36px;margin-bottom:16px}
+.sfc h4{font-size:16px;font-weight:600;margin-bottom:8px}
+.sfc p{font-size:14px;color:var(--g600);line-height:1.7}
+
+.wl{background:linear-gradient(135deg,var(--cream),var(--cream-dark))}
+.wg{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:48px}
+.ws{position:relative;width:340px;height:320px;margin:0 auto}
+.wc{position:absolute;border-radius:20px;padding:28px;box-shadow:0 16px 48px rgba(26,10,46,.1)}
+.wc1{background:var(--white);width:300px;top:0;left:0;z-index:3;transform:rotate(-2deg)}
+.wc2{background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.15);width:280px;top:20px;left:40px;z-index:2;transform:rotate(3deg)}
+.wc3{background:rgba(74,35,112,.06);border:1px solid rgba(74,35,112,.1);width:260px;top:40px;left:20px;z-index:1;transform:rotate(-4deg)}
+.wb{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--plum-light);margin-bottom:10px}
+.wb::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--coral);animation:pd 2s ease infinite}
+.wc h4{font-family:var(--d);font-size:17px;margin-bottom:6px;color:var(--g800)}
+.wc p{font-size:13px;color:var(--g600);line-height:1.6}
+.wf{display:flex;flex-direction:column;gap:20px}
+.wf h3{font-family:var(--d);font-size:28px;line-height:1.3;color:var(--g800)}
+.wf>p{font-size:15px;color:var(--g600);line-height:1.7}
+.wr{display:flex;gap:12px}
+.wi{flex:1;padding:16px 20px;border-radius:100px;border:2px solid var(--g200);font-family:var(--b);font-size:15px;outline:none;transition:border-color .2s;background:var(--white)}
+.wi:focus{border-color:var(--coral)}
+
+.cse{background:linear-gradient(160deg,var(--plum),var(--plum-mid),#3a1a5e);text-align:center;position:relative;overflow:hidden}
+.cse::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:500px;background:radial-gradient(ellipse,rgba(255,107,107,.08) 0%,transparent 60%);pointer-events:none}
+
+footer{background:var(--plum);padding:64px 32px 40px}
+.fti{max-width:1200px;margin:0 auto}
+.ftt{display:grid;grid-template-columns:1fr 2fr;gap:48px;margin-bottom:48px}
+.ftlo{font-family:var(--d);font-size:24px;color:#fff;margin-bottom:12px}
+.ftlo em{font-style:italic;opacity:.7}
+.fttg{font-size:14px;color:rgba(255,255,255,.4);line-height:1.7;max-width:280px}
+.ftn{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.ftn h4{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px}
+.ftn a{display:block;font-size:14px;color:rgba(255,255,255,.6);text-decoration:none;margin-bottom:10px;transition:color .2s}
+.ftn a:hover{color:#fff}
+.ftb{border-top:1px solid rgba(255,255,255,.06);padding-top:24px;display:flex;justify-content:space-between;align-items:center}
+.ftc{font-size:12px;color:rgba(255,255,255,.3)}
+.fts{display:flex;gap:14px}
+.fts a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;transition:all .2s}
+.fts a:hover{background:rgba(255,255,255,.12);color:#fff}
+
+.rv{opacity:0;transform:translateY(20px);transition:all .7s var(--ease)}.rv.vi{opacity:1;transform:none}
+
+@media(max-width:900px){
+.hi{grid-template-columns:1fr;text-align:center;gap:48px}.hs{margin:0 auto 40px}.ha{justify-content:center}
+.hc{width:280px;height:400px}.hca{width:240px}
+.ti{grid-template-columns:repeat(2,1fr)}.dc,.csm-grid,.cvs-grid{grid-template-columns:1fr}
+.dim-grid{grid-template-columns:repeat(4,1fr)}
+.fb{grid-template-columns:1fr}.fb:nth-child(even) .fv{order:0}.ft{padding:40px 28px}
+.qg,.ce-grid{grid-template-columns:1fr}
+.stage-row{grid-template-columns:1fr;gap:12px}
+.sg{grid-template-columns:repeat(2,1fr)}.mg{grid-template-columns:1fr}
+.pg{grid-template-columns:1fr}.pc.fe{transform:none}.pc.fe:hover{transform:translateY(-4px)}
+.sfg{grid-template-columns:1fr}.wg{grid-template-columns:1fr;gap:48px}
+.ftt{grid-template-columns:1fr}.ftn{grid-template-columns:repeat(2,1fr)}
+.ftb{flex-direction:column;gap:16px;text-align:center}
+.nk{display:none}.mt{display:block}
+}
+@media(max-width:600px){.sg,.dim-grid{grid-template-columns:repeat(2,1fr)}.wr{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<nav id="mn"><div class="ni"><a href="#" class="nl">SPECTRA <em>Love</em></a><ul class="nk"><li><a href="#dims">Dimensions</a></li><li><a href="#feat">Features</a></li><li><a href="#dt">Deep Talk</a></li><li><a href="#pricing">Plans</a></li><li><a href="#wls" class="nc">Join Waitlist</a></li></ul><button class="mt" aria-label="Menu">☰</button></div></nav>
+
+<!-- HERO -->
+<section class="hero"><div class="hi"><div style="position:relative;z-index:2">
+<div class="hb"><div class="hbd"></div><span>7 dimensions · 42 facets · conversation coaching</span></div>
+<h1>Love on a<br><em>different wavelength.</em></h1>
+<p class="hs">SPECTRA Love matches you across 7 personality dimensions — then coaches you through deeper conversations with real-time suggestions adapted to your combined profiles. Practice solo first, or dive straight in. Not another swipe app.</p>
+<div class="ha"><a href="#wls" class="btn bp">Join the Waitlist</a><a href="#dims" class="btn bo">See How It Works</a></div>
+</div>
+<div class="hc"><div class="hca"><div class="ci" style="background:linear-gradient(160deg,#6a3093,#a044ff)"><div class="cmb">94% Resonance</div><div class="db"><div class="dr"><span class="dl">S</span><div class="dt"><div class="df" style="width:82%;background:#8B6CBE"></div></div></div><div class="dr"><span class="dl">P</span><div class="dt"><div class="df" style="width:71%;background:#4298B5"></div></div></div><div class="dr"><span class="dl">E</span><div class="dt"><div class="df" style="width:45%;background:#D4685A"></div></div></div><div class="dr"><span class="dl">C</span><div class="dt"><div class="df" style="width:88%;background:#D4A84B"></div></div></div><div class="dr"><span class="dl">T</span><div class="dt"><div class="df" style="width:76%;background:#4BAD7C"></div></div></div><div class="dr"><span class="dl">R</span><div class="dt"><div class="df" style="width:64%;background:#5C8A9E"></div></div></div><div class="dr"><span class="dl">A</span><div class="dt"><div class="df" style="width:79%;background:#A07BC4"></div></div></div></div><div class="cn">Sofia, 29</div><div class="cd">Sovereign Explorer · London</div><div class="ct"><span class="cta">CLARITY 8.8</span><span class="cta">SCOPE 8.2</span></div></div></div>
+<div class="hca"><div class="ci" style="background:linear-gradient(160deg,#e44d26,#f16529)"><div class="cn">Marcus, 32</div><div class="cd">Steady Architect · Bristol</div><div class="ct"><span class="cta">TRACTION 8.4</span><span class="cta">REGULATION 7.6</span></div></div></div>
+<div class="hca"><div class="ci" style="background:linear-gradient(160deg,#1a535c,#4ecdc4)"><div class="cn">Aisha, 27</div><div class="cd">Catalyst Weaver · Manchester</div><div class="ct"><span class="cta">PULSE 8.1</span></div></div></div></div>
+</div></section>
+
+<!-- TRUST -->
+<div class="ts"><div class="ti"><div class="rv"><div class="tn"><em>42</em></div><div class="tl">Personality facets<br>NEO-PI-R + proprietary</div></div><div class="rv"><div class="tn"><em>7</em></div><div class="tl">Dimensions matched<br>S · P · E · C · T · R · A</div></div><div class="rv"><div class="tn"><em>60</em></div><div class="tl">Conversation categories<br>across 5 relationship stages</div></div><div class="rv"><div class="tn"><em>7</em></div><div class="tl">Communication styles<br>profiled for conversation fit</div></div></div></div>
+
+<!-- DIMENSIONS DECODED -->
+<section class="dim-decode" id="dims"><div class="si">
+<div class="sl rv">The 7 Dimensions</div>
+<h2 class="sh rv" style="max-width:600px">S · P · E · C · T · R · A — decoded.</h2>
+<p class="sd rv">Each letter of SPECTRA measures a different axis of how you operate. Together, they create your personality architecture — and the foundation of every match.</p>
+<div class="dim-grid rv">
+<div class="dim-card"><div class="dim-letter" style="color:#8B6CBE">S</div><div class="dim-name">Scope</div><div class="dim-sub">Agentic Drive</div><div class="dim-poles"><span>Passive</span><span>Agentic</span></div></div>
+<div class="dim-card"><div class="dim-letter" style="color:#4298B5">P</div><div class="dim-name">Pulse</div><div class="dim-sub">Social Energy</div><div class="dim-poles"><span>Solitary</span><span>Connected</span></div></div>
+<div class="dim-card"><div class="dim-letter" style="color:#D4685A">E</div><div class="dim-name">Edge</div><div class="dim-sub">Competitive Architecture</div><div class="dim-poles"><span>Yielding</span><span>Cutting</span></div></div>
+<div class="dim-card"><div class="dim-letter" style="color:#D4A84B">C</div><div class="dim-name">Clarity</div><div class="dim-sub">Cognitive Signal</div><div class="dim-poles"><span>Diffuse</span><span>Precise</span></div></div>
+<div class="dim-card"><div class="dim-letter" style="color:#4BAD7C">T</div><div class="dim-name">Traction</div><div class="dim-sub">Achievement Engine</div><div class="dim-poles"><span>Coasting</span><span>Burning</span></div></div>
+<div class="dim-card"><div class="dim-letter" style="color:#5C8A9E">R</div><div class="dim-name">Regulation</div><div class="dim-sub">Self-Governance</div><div class="dim-poles"><span>Exposed</span><span>Armored</span></div></div>
+<div class="dim-card"><div class="dim-letter" style="color:#A07BC4">A</div><div class="dim-name">Anchor</div><div class="dim-sub">Emotional Stability</div><div class="dim-poles"><span>Drifting</span><span>Grounded</span></div></div>
+</div>
+</div></section>
+
+<!-- MISSION -->
+<section class="ms"><div class="mi rv">
+<h2>Other apps match you on who you <em>appear to be.</em><br>We match you on how you <em>actually connect.</em></h2>
+<p>SPECTRA Love combines personality architecture with conversation coaching. Three intelligence layers: dimensional matching, topic suggestion across 60 categories, and real-time coaching that helps you go deeper.</p>
+<div style="margin-top:36px"><a href="#wls" class="btn bp">Join the Waitlist</a></div>
+</div>
+<div style="max-width:1200px;margin:0 auto;padding:0 32px"><div class="dc rv">
+<div class="dca"><div class="dcv" style="background:linear-gradient(160deg,var(--plum),var(--plum-light))"><div style="text-align:center;color:#fff"><div style="font-size:48px;margin-bottom:12px">💜</div><div style="font-family:var(--d);font-size:22px;margin-bottom:8px">SPECTRA Date</div><div style="font-size:13px;opacity:.6;max-width:220px;margin:0 auto">Matching + coaching across 7 dimensions and 60 topic categories</div></div></div><div class="dcc"><h3>SPECTRA Date</h3><p>Matches on dimensional complementarity, then coaches every conversation through 5 relationship stages with topic suggestions, language coaching, and depth regulation.</p><a href="#wls" class="dcl">Join the waitlist</a></div></div>
+<div class="dca"><div class="dcv" style="background:linear-gradient(160deg,var(--gold),#e6a817)"><div style="text-align:center;color:var(--plum)"><div style="font-size:48px;margin-bottom:12px">✨</div><div style="font-family:var(--d);font-size:22px;margin-bottom:8px">SPECTRA Connect</div><div style="font-size:13px;opacity:.7;max-width:220px;margin:0 auto">Friend matching on CLARITY, TRACTION, or PULSE with conversation support</div></div></div><div class="dcc"><h3>SPECTRA Connect</h3><p>Same coaching engine, different algorithm. Connect finds people who share your cognitive style, pace, or social energy — with conversation coaching adapted for friendships.</p><a href="#wls" class="dcl">Join the waitlist</a></div></div>
+</div></div></section>
+
+<!-- COMMUNICATION STYLE MATCHING -->
+<section class="csm" id="csm"><div class="si">
+<div class="sl rv">Communication Style Matching</div>
+<h2 class="sh rv" style="max-width:640px">Why communication-style matching changes everything.</h2>
+<p class="sd rv">Tinder matches on photos. Hinge matches on prompts. SPECTRA matches on how you actually communicate — 7 communication style pairs profiled during onboarding, then matched for complementarity, not similarity.</p>
+<div class="csm-grid rv">
+<div class="csm-card"><div class="csm-pair"><span class="csm-vs">Proactive ↔ Reactive</span></div><h4>Who initiates, who reflects</h4><p>Proactive: "Let's go!" Reactive: "Let me think about it." Matched for balance — one drives, one steers. The engine coaches each style differently.</p></div>
+<div class="csm-card"><div class="csm-pair"><span class="csm-vs">Toward ↔ Away-From</span></div><h4>Motivation direction</h4><p>Toward: "What could we gain?" Away-From: "What should we avoid?" The engine adapts prompts — motivating vs. reassuring language, matched to each person.</p></div>
+<div class="csm-card"><div class="csm-pair"><span class="csm-vs">Procedures ↔ Options</span></div><h4>Structure vs. exploration</h4><p>Procedures: step-by-step. Options: open-ended. Your Options + their Procedures = creative vision + structured execution. The matching engine sees this.</p></div>
+<div class="csm-card"><div class="csm-pair"><span class="csm-vs">General ↔ Specific</span></div><h4>Big picture vs. detail</h4><p>General thinkers get broad questions. Specific thinkers get concrete ones. Matched pairs get prompts calibrated to both — "big idea first, then zoom in."</p></div>
+<div class="csm-card"><div class="csm-pair"><span class="csm-vs">Similarities ↔ Differences</span></div><h4>What you notice first</h4><p>Similarity seekers: "We both love that!" Difference seekers: "That's so different from how I see it!" Both valid — the engine frames shared topics through each lens.</p></div>
+<div class="csm-card"><div class="csm-pair"><span class="csm-vs">Internal ↔ External Authority</span></div><h4>Where confidence comes from</h4><p>Internal: "I know what I think." External: "What do others say?" The coaching adapts — "What's your take?" vs. "Here's what the research shows."</p></div>
+</div>
+</div></section>
+
+<!-- FEATURES with Phone Mockups -->
+<section id="feat"><div class="si">
+<div class="fb rv"><div class="ft"><div class="fk">Matching Engine</div><h3 class="ftl">Personality dimensions + communication style = real compatibility.</h3><p class="fds">Two matching layers working together. Layer 1: tension complementarity across 7 SPECTRA dimensions. Layer 2: communication style matching across 7 style pairs. The result: people who balance you AND talk the way you respond to.</p><ul class="fl"><li>Dimensional resonance: which of your S·P·E·C·T·R·A dimensions harmonise, and which create creative friction</li><li>Communication complementarity: Proactive + Reactive, Options + Procedures = balanced dynamics</li><li>Minimum 2 shared interest categories + matching relationship intentions</li></ul></div>
+<div class="fv" style="background:linear-gradient(135deg,var(--plum),var(--plum-light))"><div class="pf"><div class="ps"><div style="background:linear-gradient(135deg,var(--coral),var(--rose));padding:20px 16px 18px;text-align:center"><p style="color:rgba(255,255,255,.8);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px">Today's Match</p><p style="color:#fff;font-family:var(--d);font-size:22px">94% Resonance</p></div><div style="padding:14px;background:var(--white)"><div style="text-align:center;margin-bottom:12px"><div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#e6a817);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:var(--plum)">M</div><div style="font-size:14px;font-weight:700">Marcus, 32</div><div style="font-size:10px;color:var(--g400)">Steady Architect · Bristol</div></div>
+<div style="background:rgba(74,35,112,.04);border-radius:12px;padding:10px;margin-bottom:8px"><p style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--plum-light);margin-bottom:3px">Dimensional harmony</p><p style="font-size:11px;color:var(--g600);line-height:1.4">Both high CLARITY + TRACTION. You build systems — together.</p></div>
+<div style="background:var(--coral-glow);border-radius:12px;padding:10px;margin-bottom:8px"><p style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--coral);margin-bottom:3px">Communication fit</p><p style="font-size:11px;color:var(--g600);line-height:1.4">Your Options + his Procedures = creative vision + structured execution.</p></div>
+<button style="width:100%;padding:11px;border-radius:100px;background:linear-gradient(135deg,var(--coral),var(--rose));color:#fff;border:none;font-weight:700;font-size:12px;letter-spacing:1px;cursor:pointer;margin-top:4px">Connect</button></div></div></div></div></div>
+
+<div class="fb rv"><div class="ft"><div class="fk">Conversation Coaching</div><h3 class="ftl">Real-time suggestions. Invisible until you need them.</h3><p class="fds">The coaching engine analyses your conversation — measuring energy, depth, balance, and stage. It delivers subtle, optional topic suggestions and conversation tips. Both users know coaching is active. It supports authenticity, never manipulation.</p><ul class="fl"><li>60 topic categories across 5 relationship stages — from ice-breaking to long-term vision</li><li>Real-time detection: silence, low energy, monologues → targeted topic suggestion</li><li>Language coaching: "They think in pictures — try 'I see what you mean' instead of 'I hear you'"</li></ul></div>
+<div class="fv" style="background:linear-gradient(135deg,var(--plum-mid),var(--plum))"><div class="pf"><div class="ps"><div style="background:linear-gradient(135deg,var(--gold),#e6a817);padding:16px;text-align:center"><p style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--plum);margin-bottom:2px">Conversation Coach</p><p style="font-family:var(--d);font-size:16px;color:var(--plum)">Stage 3 · Deepening</p></div>
+<div style="padding:12px;background:var(--white)">
+<div style="background:var(--cream);border-radius:12px;padding:10px;margin-bottom:8px"><p style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--plum-light);margin-bottom:3px">💡 Topic suggestion</p><p style="font-size:12px;color:var(--g800);line-height:1.4">"Ask about their definition of happiness — you both value personal growth."</p></div>
+<div style="background:var(--coral-glow);border-radius:12px;padding:10px;margin-bottom:8px"><p style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--coral);margin-bottom:3px">🎯 Language coaching</p><p style="font-size:12px;color:var(--g800);line-height:1.4">"They're using visual language. Try: 'I see what you mean' instead of 'I hear you.'"</p></div>
+<div style="background:rgba(74,35,112,.04);border-radius:12px;padding:10px"><p style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--plum-light);margin-bottom:3px">📊 Conversation health</p><div style="display:flex;gap:12px;margin-top:6px"><div><p style="font-size:9px;color:var(--g400)">Energy</p><p style="font-size:13px;font-weight:700;color:#4BAD7C">High</p></div><div><p style="font-size:9px;color:var(--g400)">Depth</p><p style="font-size:13px;font-weight:700;color:var(--gold)">Medium</p></div><div><p style="font-size:9px;color:var(--g400)">Balance</p><p style="font-size:13px;font-weight:700;color:#4298B5">Good</p></div></div></div>
+</div></div></div></div></div>
+</div></section>
+
+<!-- 5-STAGE TOPIC MAP -->
+<section class="stm"><div class="si">
+<div class="sl rv">60 Topics · 5 Stages</div>
+<h2 class="sh rv" style="max-width:640px">Conversations progress. Your topics should too.</h2>
+<p class="sd rv">60 conversation categories mapped across 5 relationship stages. The engine tracks where your relationship is and suggests topics at the right depth — never too shallow, never too fast.</p>
+<div class="rv" style="margin-top:48px">
+<div class="stage-row"><div><div class="stage-num">Stage 1</div><div class="stage-name">Breaking the Ice</div><div class="stage-goal">Building comfort + rapport</div></div><div class="stage-topics"><span class="stage-tag">Current life</span><span class="stage-tag">Work</span><span class="stage-tag">Weather</span><span class="stage-tag">Where they live</span><span class="stage-tag">Weekend plans</span><span class="stage-tag">Daily routines</span></div></div>
+<div class="stage-row"><div><div class="stage-num">Stage 2</div><div class="stage-name">Shared Interests</div><div class="stage-goal">Discovering common ground</div></div><div class="stage-topics"><span class="stage-tag">Music</span><span class="stage-tag">Films</span><span class="stage-tag">Food</span><span class="stage-tag">Travel</span><span class="stage-tag">Hobbies</span><span class="stage-tag">Books</span><span class="stage-tag">Sport</span><span class="stage-tag">Cooking</span></div></div>
+<div class="stage-row"><div><div class="stage-num">Stage 3</div><div class="stage-name">Deepening</div><div class="stage-goal">Emotional connection</div></div><div class="stage-topics"><span class="stage-tag">Happiness</span><span class="stage-tag">Life goals</span><span class="stage-tag">Heroes</span><span class="stage-tag">Creativity</span><span class="stage-tag">Fears</span><span class="stage-tag">Passions</span><span class="stage-tag">Dreams</span></div></div>
+<div class="stage-row"><div><div class="stage-num">Stage 4</div><div class="stage-name">Personal History</div><div class="stage-goal">Building trust + vulnerability</div></div><div class="stage-topics"><span class="stage-tag">Origins</span><span class="stage-tag">Family</span><span class="stage-tag">Achievements</span><span class="stage-tag">Challenges overcome</span><span class="stage-tag">Turning points</span><span class="stage-tag">Formative moments</span></div></div>
+<div class="stage-row"><div><div class="stage-num">Stage 5</div><div class="stage-name">Values & Vision</div><div class="stage-goal">Long-term compatibility test</div></div><div class="stage-topics"><span class="stage-tag">The future</span><span class="stage-tag">Ageing</span><span class="stage-tag">What matters most</span><span class="stage-tag">Life changes</span><span class="stage-tag">Legacy</span><span class="stage-tag">Non-negotiables</span></div></div>
+</div>
+</div></section>
+
+<!-- DEEP TALK -->
+<section class="dts" id="dt"><div class="si"><div class="rv" style="text-align:center;max-width:700px;margin:0 auto"><div class="sl" style="color:var(--gold)">Deep Talk · Powered by Science</div><h2 class="sh" style="color:#fff;margin-bottom:16px">The 36 Questions to Fall in Love.<br>Adapted to your SPECTRA profile.</h2><p class="sd" style="color:rgba(255,255,255,.5);text-align:center;margin:0 auto">Arthur Aron's research proved structured vulnerability creates closeness faster than months of small talk. SPECTRA adapts these questions to your combined dimensional profiles and communication styles.</p></div>
+<div class="qg rv">
+<div class="qc"><div class="qs">Set I · Opening</div><p>"Given the choice of anyone in the world, whom would you want as a dinner guest?"</p><p class="qn">Adapted to SCOPE + CLARITY scores</p></div>
+<div class="qc"><div class="qs">Set II · Deepening</div><p>"If a crystal ball could tell you the truth about yourself, your life, the future — what would you want to know?"</p><p class="qn">Adapted to ANCHOR + REGULATION</p></div>
+<div class="qc"><div class="qs">Set III · Vulnerability</div><p>"Share with your partner an embarrassing moment in your life."</p><p class="qn">Pacing matched to PULSE + EDGE</p></div>
+<div class="qc"><div class="qs">Profile-Aware</div><p>"You both have high CLARITY but express it differently. What's the last idea that kept you up at night?"</p><p class="qn">Generated from combined profiles</p></div>
+<div class="qc"><div class="qs">Style-Adapted</div><p>"You're a big-picture thinker, they're detail-oriented. Describe your dream life — then ask for the specifics of theirs."</p><p class="qn">Communication style-adapted prompts</p></div>
+<div class="qc"><div class="qs">Tension-Based</div><p>"What does your Invisible Burnout tension mean for how you show love when stressed?"</p><p class="qn">SPECTRA Tension Layer prompts</p></div>
+</div>
+<div style="text-align:center;margin-top:48px" class="rv"><a href="#wls" class="btn bp">Join the Waitlist</a></div>
+</div></section>
+
+<!-- CONVERSATION COACHING ENGINE -->
+<section class="ce"><div class="si">
+<div class="sl rv">Conversation Coaching</div>
+<h2 class="sh rv" style="max-width:600px">6 coaching tools working invisibly in every conversation.</h2>
+<p class="sd rv">The engine analyses your chat in real-time and delivers subtle, optional suggestions. Both users know coaching is active. It teaches better conversation, not manipulation.</p>
+<div class="ce-grid rv">
+<div class="ce-card"><div class="ce-badge">Language</div><h4>Language Matching</h4><p>Detects communication preferences — visual, auditory, or action-oriented language — and suggests vocabulary that resonates with your match.</p></div>
+<div class="ce-card"><div class="ce-badge">Balance</div><h4>Conversation Balance</h4><p>Detects who's talking more and gently rebalances. "Share your own experience too" — prevents monologues and one-sided dynamics.</p></div>
+<div class="ce-card"><div class="ce-badge">Timing</div><h4>Emotional Timing</h4><p>Suggests emotionally engaging questions at peak moments. Creates positive associations tied to the conversation — at the right time, not forced.</p></div>
+<div class="ce-card"><div class="ce-badge">Perspective</div><h4>Perspective Shifts</h4><p>"Try asking how they see it" — shifts perspective when conversation gets one-dimensional. Builds empathy naturally without being preachy.</p></div>
+<div class="ce-card"><div class="ce-badge">Depth</div><h4>Depth Regulation</h4><p>"Zoom in — ask for a specific example." Shifts conversation from abstract to concrete when energy drops, or zooms out when it gets too granular.</p></div>
+<div class="ce-card"><div class="ce-badge">Flow</div><h4>Flow Detection</h4><p>When conversation is flowing deep and natural, the engine goes silent. Best coaching is knowing when not to coach. You'll never see a prompt during flow state.</p></div>
+</div></div></section>
+
+<!-- CONVERSATION STATES + REAL-TIME LOOP -->
+<section class="cvs"><div class="si">
+<div class="sl rv">Real-Time Analysis Loop</div>
+<h2 class="sh rv" style="max-width:600px">Analyse → Select → Suggest → Learn. Every message.</h2>
+<p class="sd rv" style="margin-bottom:12px">The engine runs a continuous loop: it analyses 6 conversation signals in real-time (stage, energy, depth, balance, language style, topic progression), selects the right intervention, delivers an optional suggestion, then learns from your feedback. After every conversation, you rate the experience — and the engine gets smarter.</p>
+<div class="rv" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px"><span style="background:var(--cream);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--plum-light)">① Analyse state</span><span style="color:var(--coral);font-size:14px">→</span><span style="background:var(--cream);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--plum-light)">② Select tool</span><span style="color:var(--coral);font-size:14px">→</span><span style="background:var(--cream);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--plum-light)">③ Suggest (optional)</span><span style="color:var(--coral);font-size:14px">→</span><span style="background:var(--cream);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--plum-light)">④ Learn from feedback</span><span style="color:var(--coral);font-size:14px">→</span><span style="background:var(--coral-glow);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--coral)">↻ Repeat</span></div>
+<div class="cvs-grid rv">
+<div class="cvs-card"><div class="cvs-state">Silence > 2 min</div><h4>New topic injected</h4><p>"You both love travel — ask about their best trip." Topic suggestion from shared interests.</p><div class="cvs-tool">→ Topic Suggestion</div></div>
+<div class="cvs-card"><div class="cvs-state">Short replies < 10 words</div><h4>Depth suggestion</h4><p>"Ask for a specific example" — breaks surface answers into real conversation.</p><div class="cvs-tool">→ Perspective Shift</div></div>
+<div class="cvs-card"><div class="cvs-state">Energy dropping</div><h4>Topic switch + energy boost</h4><p>"Ask something they're passionate about!" — emotional timing at the right moment.</p><div class="cvs-tool">→ Emotional Timing</div></div>
+<div class="cvs-card"><div class="cvs-state">One-sided monologue</div><h4>Rebalance prompt</h4><p>"Share your own experience too" — gentle conversation balance coaching.</p><div class="cvs-tool">→ Conversation Balance</div></div>
+<div class="cvs-card"><div class="cvs-state">High energy + deep</div><h4>Flow state — no intervention</h4><p>When it's flowing, the engine stays silent. Best coaching is knowing when not to coach.</p><div class="cvs-tool">→ Flow Detection</div></div>
+<div class="cvs-card"><div class="cvs-state">Ready to deepen</div><h4>Stage progression</h4><p>"You could ask something more personal now." Depth shift at the right timing.</p><div class="cvs-tool">→ Depth Regulation</div></div>
+</div></div></section>
+
+<!-- HOW IT WORKS -->
+
+<!-- CONVERSATION QUALITY SCORING -->
+<section style="background:var(--cream)"><div class="si">
+<div class="rv" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+<div><div class="sl">Conversation Quality Score</div>
+<h2 class="sh">Every conversation scored. Every pattern tracked.</h2>
+<p class="sd" style="margin-bottom:20px">After each chat, you rate the experience (1-5) and whether coaching suggestions were helpful. The engine combines your feedback with 7 measured signals to generate a Conversation Quality Score — and uses it to improve future suggestions.</p>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:20px">
+<div style="display:flex;align-items:center;gap:12px"><div style="width:8px;height:8px;border-radius:50%;background:#4BAD7C;flex-shrink:0"></div><span style="font-size:14px;color:var(--g600)"><strong style="color:var(--g800)">Balance</strong> — who talked more, was it equitable?</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:8px;height:8px;border-radius:50%;background:#D4A84B;flex-shrink:0"></div><span style="font-size:14px;color:var(--g600)"><strong style="color:var(--g800)">Depth</strong> — surface small talk vs. real conversation</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:8px;height:8px;border-radius:50%;background:#D4685A;flex-shrink:0"></div><span style="font-size:14px;color:var(--g600)"><strong style="color:var(--g800)">Energy</strong> — enthusiasm, response speed, engagement</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:8px;height:8px;border-radius:50%;background:#4298B5;flex-shrink:0"></div><span style="font-size:14px;color:var(--g600)"><strong style="color:var(--g800)">Duration</strong> — how long you actually talked</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:8px;height:8px;border-radius:50%;background:#8B6CBE;flex-shrink:0"></div><span style="font-size:14px;color:var(--g600)"><strong style="color:var(--g800)">Coaching usage</strong> — which suggestions you used vs. skipped</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:8px;height:8px;border-radius:50%;background:#A07BC4;flex-shrink:0"></div><span style="font-size:14px;color:var(--g600)"><strong style="color:var(--g800)">Response length</strong> — depth of replies over time</span></div>
+<div style="display:flex;align-items:center;gap:12px"><div style="width:8px;height:8px;border-radius:50%;background:var(--coral);flex-shrink:0"></div><span style="font-size:14px;color:var(--g600)"><strong style="color:var(--g800)">Your rating</strong> — how much fun you actually had (1-5)</span></div>
+</div>
+</div>
+<div style="display:flex;justify-content:center"><div class="pf"><div class="ps"><div style="background:linear-gradient(135deg,#4BAD7C,#2d9465);padding:16px;text-align:center"><p style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.8);margin-bottom:2px">Post-Chat Feedback</p><p style="font-family:var(--d);font-size:18px;color:#fff">Rate this conversation</p></div>
+<div style="padding:14px;background:var(--white)">
+<div style="text-align:center;margin-bottom:14px"><p style="font-size:12px;color:var(--g400);margin-bottom:6px">How was it?</p><div style="display:flex;justify-content:center;gap:8px;font-size:24px"><span style="cursor:pointer">😐</span><span style="cursor:pointer">🙂</span><span style="cursor:pointer;transform:scale(1.2);display:inline-block">😊</span><span style="cursor:pointer">😄</span><span style="cursor:pointer">🤩</span></div></div>
+<div style="background:var(--cream);border-radius:12px;padding:10px;margin-bottom:8px"><p style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--plum-light);margin-bottom:3px">Were suggestions helpful?</p><div style="display:flex;gap:8px;margin-top:6px"><span style="background:#4BAD7C;color:#fff;border-radius:100px;padding:4px 16px;font-size:11px;font-weight:700">Yes</span><span style="background:var(--g200);color:var(--g600);border-radius:100px;padding:4px 16px;font-size:11px;font-weight:600">No</span></div></div>
+<div style="background:var(--cream);border-radius:12px;padding:10px;margin-bottom:8px"><p style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--plum-light);margin-bottom:3px">Continue talking?</p><div style="display:flex;gap:8px;margin-top:6px"><span style="background:var(--coral);color:#fff;border-radius:100px;padding:4px 16px;font-size:11px;font-weight:700">Yes!</span><span style="background:var(--g200);color:var(--g600);border-radius:100px;padding:4px 16px;font-size:11px;font-weight:600">Not sure</span></div></div>
+<div style="background:rgba(74,35,112,.04);border-radius:12px;padding:10px"><p style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--plum-light);margin-bottom:3px">Your Quality Score</p><p style="font-family:var(--d);font-size:28px;color:#4BAD7C;margin-top:4px">8.4<span style="font-size:14px;color:var(--g400)">/10</span></p><p style="font-size:10px;color:var(--g400);margin-top:2px">↑ 1.2 from your average</p></div>
+</div></div></div></div>
+</div>
+</div></section>
+
+<!-- INSIGHTS DASHBOARD -->
+<section><div class="si">
+<div class="fb rv">
+<div class="ft"><div class="fk">Conversation Insights</div>
+<h3 class="ftl">Track your growth. See your patterns. Get better.</h3>
+<p class="fds">The Insights Dashboard is your personal conversation intelligence centre. It tracks quality over time, shows which coaching tools you use most, reveals your match patterns, and maps your conversation skill progression — the key feature that turns a dating app into a skill-building platform.</p>
+<ul class="fl">
+<li>Quality radar chart: see your strengths and weaknesses across 7 conversation signals at a glance</li>
+<li>Growth tracking: conversation quality over time — are you actually getting better at connecting?</li>
+<li>Coaching skill map: which tools you use, which you skip, and where you're improving</li>
+<li>Match pattern insights: what kind of profiles you connect best with, and why</li>
+</ul>
+</div>
+<div class="fv" style="background:linear-gradient(135deg,var(--plum),var(--plum-mid))"><div class="pf"><div class="ps"><div style="background:linear-gradient(135deg,var(--plum-light),var(--plum));padding:16px;text-align:center"><p style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:2px">Insights</p><p style="font-family:var(--d);font-size:16px;color:#fff">Your Conversation Profile</p></div>
+<div style="padding:14px;background:var(--white)">
+<div style="text-align:center;margin-bottom:10px"><p style="font-size:10px;color:var(--g400);margin-bottom:4px">Overall Quality Score</p><p style="font-family:var(--d);font-size:32px;color:var(--plum)">7.8</p><p style="font-size:10px;color:#4BAD7C">↑ 12% this month</p></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px">
+<div style="background:var(--cream);border-radius:8px;padding:8px;text-align:center"><p style="font-size:9px;color:var(--g400)">Balance</p><div style="height:4px;background:var(--g200);border-radius:2px;margin-top:4px;overflow:hidden"><div style="width:85%;height:100%;background:#4BAD7C;border-radius:2px"></div></div></div>
+<div style="background:var(--cream);border-radius:8px;padding:8px;text-align:center"><p style="font-size:9px;color:var(--g400)">Depth</p><div style="height:4px;background:var(--g200);border-radius:2px;margin-top:4px;overflow:hidden"><div style="width:72%;height:100%;background:#D4A84B;border-radius:2px"></div></div></div>
+<div style="background:var(--cream);border-radius:8px;padding:8px;text-align:center"><p style="font-size:9px;color:var(--g400)">Energy</p><div style="height:4px;background:var(--g200);border-radius:2px;margin-top:4px;overflow:hidden"><div style="width:90%;height:100%;background:#D4685A;border-radius:2px"></div></div></div>
+<div style="background:var(--cream);border-radius:8px;padding:8px;text-align:center"><p style="font-size:9px;color:var(--g400)">Duration</p><div style="height:4px;background:var(--g200);border-radius:2px;margin-top:4px;overflow:hidden"><div style="width:65%;height:100%;background:#4298B5;border-radius:2px"></div></div></div>
+</div>
+<div style="background:var(--coral-glow);border-radius:10px;padding:10px"><p style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--coral);margin-bottom:3px">Insight</p><p style="font-size:11px;color:var(--g800);line-height:1.4">Your depth scores improve 40% when you use Perspective Shifts. Try them more often.</p></div>
+</div></div></div></div>
+</div>
+</div></section>
+
+<!-- PRACTICE MODE -->
+<section style="background:var(--cream)"><div class="si">
+<div class="fb rv">
+<div class="fv" style="background:linear-gradient(135deg,#3a1a5e,var(--plum))"><div class="pf"><div class="ps"><div style="background:linear-gradient(135deg,var(--gold),#e6a817);padding:16px;text-align:center"><p style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--plum);margin-bottom:2px">Solo Mode</p><p style="font-family:var(--d);font-size:16px;color:var(--plum)">Practice Conversations</p></div>
+<div style="padding:14px;background:var(--white)">
+<div style="text-align:center;margin-bottom:12px"><div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--plum-light),var(--plum));margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:20px">🤖</div><p style="font-size:13px;font-weight:700;color:var(--plum)">AI Practice Partner</p><p style="font-size:10px;color:var(--g400)">Stage 2 · Shared Interests</p></div>
+<div style="background:var(--cream);border-radius:10px;padding:8px 10px;margin-bottom:6px"><p style="font-size:11px;color:var(--g600);line-height:1.4"><span style="font-weight:700;color:var(--plum-light)">AI:</span> "I've been getting into pottery lately — there's something about shaping clay that feels meditative."</p></div>
+<div style="background:var(--coral-glow);border-radius:10px;padding:8px 10px;margin-bottom:6px"><p style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--coral);margin-bottom:2px">💡 Coaching tip</p><p style="font-size:11px;color:var(--g600);line-height:1.4">They used kinesthetic language ("shaping", "feels"). Try matching: "That sounds hands-on..."</p></div>
+<div style="display:flex;gap:6px"><input style="flex:1;padding:8px 12px;border-radius:100px;border:1.5px solid var(--g200);font-size:11px;font-family:var(--b);outline:none" placeholder="Type your response..."><button style="padding:8px 14px;border-radius:100px;background:var(--coral);color:#fff;border:none;font-size:11px;font-weight:700;cursor:pointer">Send</button></div>
+</div></div></div></div>
+<div class="ft"><div class="fk">Practice Mode</div>
+<h3 class="ftl">Get better at conversations before you match with anyone.</h3>
+<p class="fds">The chicken-and-egg problem of dating apps: you need conversation skills to have good dates, but you need dates to practice conversation skills. Practice Mode breaks this cycle. Train with an AI conversation partner that uses the same coaching engine — so when you match with a real person, you already know how to go deeper.</p>
+<ul class="fl">
+<li>AI practice partner calibrated to different communication styles — practice with someone who thinks like your future match</li>
+<li>Same coaching tools as real conversations — language matching, depth regulation, perspective shifts — but in a safe solo environment</li>
+<li>Skill progression tracked: watch your conversation quality improve before you start matching</li>
+<li>Positioning: "the app that teaches you to connect" — not just another dating app, a conversation skill platform</li>
+</ul>
+</div></div>
+</div></section>
+
+<!-- HOW IT WORKS -->
+<section class="ss"><div class="si">
+<div class="sl rv" style="color:var(--gold)">How It Works</div>
+<h2 class="sh rv" style="color:#fff;max-width:600px">Three intelligence layers working together.</h2>
+<div class="sg rv">
+<div class="sc"><div class="sn">01</div><h4>Take SPECTRA + Style Quiz</h4><p>62 personality questions (8 min) + 7 communication style scenarios (3 min). Already have SPECTRA? Just add the style quiz.</p></div>
+<div class="sc"><div class="sn">02</div><h4>Practice First (Optional)</h4><p>Solo Practice Mode with AI partner. Same coaching engine. Build conversation skills before you match — or skip straight to real connections.</p></div>
+<div class="sc"><div class="sn">03</div><h4>Match + Coached Conversation</h4><p>Dimensional + style matching. Deep Talk prompts. Real-time coaching. 60 topics across 5 stages. Post-chat quality scoring.</p></div>
+<div class="sc"><div class="sn">04</div><h4>Track & Improve</h4><p>Insights Dashboard tracks your conversation growth. The engine learns from your feedback every chat. Take it offline when ready — voice, video, or in person.</p></div>
+</div></div></section>
+
+<!-- MEMBER CIRCLE -->
+<section class="mc"><div class="si"><div class="mg rv">
+<div class="mv"><div style="text-align:center"><div style="font-size:64px;margin-bottom:16px">🫶</div><div style="font-family:var(--d);font-size:24px;color:var(--g800);margin-bottom:8px">SPECTRA Circle</div><p style="font-size:14px;color:var(--g600);max-width:260px;margin:0 auto;line-height:1.6">A select community shaping the future of personality-based dating + conversation coaching</p></div></div>
+<div><div class="sl">Shape the Product</div><h2 class="sh">Help build SPECTRA Love.</h2><p class="sd" style="margin-bottom:20px">Join the SPECTRA Circle — early members who test the coaching engine, vote on conversation topics, and help calibrate the matching algorithm before launch.</p><p class="sd" style="margin-bottom:28px">Participants get early access to features, sneak peeks at the matching algorithm, and direct access to the team.</p><a href="#wls" class="btn bp">Sign Up for the Circle</a></div>
+</div></div></section>
+
+<!-- PRICING -->
+<section id="pricing"><div class="si"><div style="text-align:center" class="rv"><div class="sl">Plans</div><h2 class="sh" style="margin:0 auto">Transparent pricing. Cancel anytime.</h2></div>
+<div class="pg rv">
+<div class="pc"><div class="ptg">Free</div><div class="pa">£0</div><div class="pp2">Forever</div><p class="pde">Full SPECTRA profile, 3 daily matches, 10 topic categories (stages 1-2), 3 coaching suggestions per conversation, basic style quiz.</p><a href="#wls" class="pb pbo">Join Waitlist</a></div>
+<div class="pc fe"><div class="ptg">Pro</div><div class="pa">£17</div><div class="pp2">per month</div><p class="pde">Unlimited matches, all 60 topic categories, unlimited coaching, full 7-style profile, advanced Deep Talk, voice & video dates.</p><a href="#wls" class="pb pbw">Join Waitlist</a></div>
+<div class="pc"><div class="ptg">Master</div><div class="pa">£37</div><div class="pp2">per month</div><p class="pde">Everything in Pro plus partner style analysis, advanced language coaching, custom topic creation, and Relationship Architecture module.</p><a href="#wls" class="pb pbo">Join Waitlist</a></div>
+</div></div></section>
+
+<!-- SAFETY -->
+<section id="safety"><div class="si"><div style="text-align:center" class="rv"><div class="sl">Safety & Ethics</div><h2 class="sh" style="margin:0 auto">Transparent coaching. Never manipulation.</h2><p class="sd" style="margin:16px auto 0;text-align:center;max-width:600px">Both users know the coaching engine is active. Every suggestion supports authenticity, not control. Your data is encrypted and never sold.</p></div>
+<div class="sfg rv">
+<div class="sfc"><div class="sfi">🛡</div><h4>Both Users See the Engine</h4><p>No hidden manipulation. Both people know coaching is active. It teaches better conversation, not persuasion tricks.</p></div>
+<div class="sfc"><div class="sfi">🔒</div><h4>Data Encrypted</h4><p>42-facet profile + communication styles + conversation data: end-to-end encrypted. Matches see dimensions, never raw data.</p></div>
+<div class="sfc"><div class="sfi">🚫</div><h4>Zero Data Sales</h4><p>Subscriptions, not data. Your personality profile and conversation patterns are never sold to advertisers.</p></div>
+</div></div></section>
+
+<!-- WAITLIST -->
+<section class="wl" id="wls"><div class="si">
+<div class="sl rv">Early Access</div><h2 class="sh rv" style="max-width:520px">Get early access.<br>Shape what we build.</h2>
+<div class="wg rv"><div><div class="ws">
+<div class="wc wc1"><div class="wb">Early Access</div><h4>SPECTRA + Style profile — free</h4><p>Waitlist members get the full SPECTRA assessment + communication style quiz before launch. Your dimensional profile + conversation style mapped.</p></div>
+<div class="wc wc2"><h4 style="color:var(--coral)">Test the coaching engine</h4><p>Be first to try conversation coaching. Rate suggestions. Shape the algorithm.</p></div>
+<div class="wc wc3"><h4 style="color:var(--plum-light)">First to match</h4><p>When we launch, waitlist members are first in the pool — with the deepest profiles.</p></div>
+</div></div>
+<div class="wf"><h3>Join the waitlist.</h3><p>No spam. One email when it's your turn — and when the free SPECTRA assessment opens for early access.</p><div class="wr"><input type="email" class="wi" placeholder="your@email.com" id="we"><button class="btn bp" style="white-space:nowrap" onclick="let e=document.getElementById('we');if(e.value){this.textContent='You\'re in ✓';this.style.background='var(--plum)';this.style.boxShadow='none'}">Join Waitlist</button></div><p style="font-size:13px;color:var(--g400);margin-top:4px">One email when it's ready. That's it.</p></div></div>
+</div></section>
+
+<!-- CTA -->
+<section class="cse"><div class="si rv" style="text-align:center;position:relative;z-index:2">
+<div class="sl" style="color:var(--gold)">Personality Science + Conversation Coaching</div>
+<h2 class="sh" style="color:#fff;max-width:600px;margin:0 auto 16px">7 dimensions. 7 communication styles.<br>60 topics. 5 stages. One app.</h2>
+<p class="sd" style="color:rgba(255,255,255,.5);margin:0 auto 32px;text-align:center;max-width:520px">Based on the Five-Factor Model (Costa & McCrae, 1992) + structured conversation methodology. Matching + coaching = real connection.</p>
+<div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap"><a href="#wls" class="btn bp" style="padding:18px 40px;font-size:16px">Join the Waitlist</a><a href="#dims" class="btn bo" style="padding:18px 40px;font-size:16px">See the Science</a></div>
+</div></section>
+
+<!-- FOOTER -->
+<footer><div class="fti"><div class="ftt"><div><div class="ftlo">SPECTRA <em>Love</em></div><p class="fttg">Dating built on personality science + conversation coaching. 42 facets. 7 dimensions. 60 topic categories. Not another swipe app.</p></div><div class="ftn"><div><h4>Product</h4><a href="#feat">SPECTRA Date</a><a href="#feat">SPECTRA Connect</a><a href="#dt">Deep Talk</a><a href="#csm">Communication Styles</a><a href="#pricing">Plans</a></div><div><h4>Science</h4><a href="#dims">7 Dimensions</a><a href="#">Methodology</a><a href="#">NEO-PI-R Foundation</a><a href="#">Conversation Research</a></div><div><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#safety">Ethics & Safety</a><a href="#">Cookie Policy</a></div></div></div><div class="ftb"><div class="ftc">© 2026 SPECTRA. Based on NEO-PI-R (Costa & McCrae, 1992) + structured conversation methodology.</div><div class="fts"><a href="#" title="Instagram">IG</a><a href="#" title="TikTok">TK</a><a href="#" title="X">X</a><a href="#" title="LinkedIn">LI</a></div></div></div></footer>
+
+<script>
+const nav=document.getElementById('mn');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40));
+if(window.scrollY>40)nav.classList.add('scrolled');
+const obs=new IntersectionObserver(e=>{e.forEach(t=>{if(t.isIntersecting)t.target.classList.add('vi')})},{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}})});
+const cards=document.querySelectorAll('.hca');let t=0;
+function fc(){t+=.008;cards.forEach((c,i)=>{const o=i*1.2;c.style.transform=`rotate(${[-2,3,-5][i]+Math.sin(t+o)*1.5}deg) translateY(${Math.sin(t+o)*4}px)`});requestAnimationFrame(fc)}
+fc();
+</script>
+</body>
+</html>
